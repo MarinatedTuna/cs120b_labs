@@ -1,6 +1,18 @@
-Breakpoint 1 at 0xea: file source/main.c, line 20.
+Breakpoint 1 at 0xf0: file source/main.c, line 24.
 Note: automatically using hardware breakpoints for read-only addresses.
-“PINA:...“PINA:...“PINA:...======================================================
+"PINA: 0x01 => PORTC: 0x01"...
+	Expected 0x01 
+	PORTC '0x800028:	0x00
+"PINA: 0x02 => PORTC: 0x02"...
+	Expected 0x02 
+	PORTC '0x800028:	0x00
+"PINA: 0x04 => PORTC: 0x03"...
+	Expected 0x04 
+	PORTC '0x800028:	0x00
+"PINA: 0x08 => PORTC: 0x04"...
+	Expected 0x08 
+	PORTC '0x800028:	0x00
+======================================================
 Running all tests..."
 
 "PINA: 0x00, PINB: 0x00 => PORTC: 0"...======================================================
