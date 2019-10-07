@@ -17,48 +17,13 @@ int main(void) {
     DDRB = 0xFF; PORTB = 0x00;
     PORTC = 0x00;
 
-    unsigned char cntavail = 0x00;
-    unsigned char ports = PINA & 0x0F;
-    unsigned char one = 0x01;
-
     while(1) {
-        if((ports & 0x01) && 0x01) {
-	    cntavail = cntavail + one;  
+        if(PORTA == 0x00) {
+	    PORTC = 4;  
         }
-        if((ports & 0x02) && 0x02) {
-            cntavail = cntavail + one;
-        }
-        if((ports & 0x04) && 0x04) {
-            cntavail = cntavail + one;
-        }
-        if((ports & 0x08) && 0x08) {
-            cntavail = cntavail + one;
-        }
-
-        // Actually counted what wasn't open so we need to flip it to show number of spaces open
-        if(cntavail == 0x04) {
-	    cntavail = 0x00;
-        }
-        else if(cntavail == 0x03) {
-	    cntavail = 0x01;
-        }
-        else if(cntavail == 0x02) {
-	    cntavail = 0x02;
-	}
-        else if(cntavail == 0x01) {
-	    cntavail = 0x03;
-        }
-	else if(cntavail == 0x00) {
-	    cntavail = 0x04;
-	}
-	else {
-	    cntavail = 0x04;
-	}
-	
-	PORTC = cntavail;
 
 	// If full
-	if(cntavail = 0x00) {
+	if(PORTA == 0x0F) {
 	    PORTC = 0x80;
 	}
     } 
