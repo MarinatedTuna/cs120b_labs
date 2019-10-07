@@ -2,31 +2,31 @@
 # Author: jtibo002
 # Partner: Jenaro Vega
 
-test "PINA: 0x01 => PORTC: 0x01"
+test "PINA: 0x00 => PORTC: 4"
 setPINA 0x00
 continue 5
-expectPORTC 0x01
+expectPORTC 4
 checkResult
 
-test "PINA: 0x02 => PORTC: 0x02"
-setPINA 0x02
+test "PINA: 0x01 => PORTC: 3"
+setPINA 0x01
 continue 5
-expectPORTC 0x02
+expectPORTC 3
 checkResult
 
-test "PINA: 0x04 => PORTC: 0x03"
-setPINA 0x04
+test "PINA: 0x03 => PORTC: 2"
+setPINA 0x03
 continue 5
-expectPORTC 0x04
+expectPORTC 2
 checkResult
 
-test "PINA: 0x08 => PORTC: 0x04"
-setPINA 0x08
+test "PINA: 0x07 => PORTC: 1"
+setPINA 0x07
 continue 5
-expectPORTC 0x08
+expectPORTC 1
 checkResult
 
-test "PINA: 0x0F => PORTC: 0x80"
+test "PINA: 0x0F => PORTC: 0"
 setPINA 0x0F
 continue 5
 expectPortC 0x80
