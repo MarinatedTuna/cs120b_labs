@@ -14,32 +14,32 @@
 
 int main(void) {
     DDRA = 0x00; PORTA = 0xFF;  
-    DDRB = 0x00; PORTB = 0xFF;
-    DDRC = 0xFF; PORTC = 0x00;
+    DDRB = 0xFF; PORTB = 0x00;
+    //DDRC = 0xFF; PORTC = 0x00;
     //unsigned char cntavail = 4;
 
     while(1) {
 
 	if(PINA == 0x00) {
 	   PORTA = PINA;
-	   PORTC = 4;
+	   PORTB = 4;
 	}
-	else if(PINA == 0x01 || PINA == 0x02 || PINA == 0x04 || PINA == 0x08) {
+	if(PINA == 0x01 || PINA == 0x02 || PINA == 0x04 || PINA == 0x08) {
 	   PORTA = PINA;
-	   PORTC = 3;
+	   PORTB = 3;
 	}
 	else if(PINA == 0x03 || PINA == 0x06 || PINA == 0x0C || PINA == 0x0A || PINA == 0x05 || PINA == 0x09) {
 	   PORTA = PINA;
-	   PORTC = 2;
+	   PORTB = 2;
 	}
 	else if(PINA == 0x07 || PINA == 0x0E || PINA == 0x0D || PINA == 0x0B) {
 	   PORTA = PINA;
-	   PORTC = 1;
+	   PORTB = 1;
 	}
 	else if(PINA == 0x0F) {
 	   PORTA = PINA;
-	   PORTC = 0;
-	} 
+	   PORTB = 0;
+	}
     } 
     return 0; 
 }  
