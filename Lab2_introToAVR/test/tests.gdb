@@ -26,6 +26,12 @@ continue 5
 expectPORTB 1
 checkResult
 
+test "PORTA: 0x0F => PORTB: 0"
+setPINA 0x0F
+continue 5
+expectPORTB 0
+checkResult
+
 # commands.gdb provides the following functions for ease:
 #   test "<message>"
 #       Where <message> is the message to print. Must call this at the beginning of every test

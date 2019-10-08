@@ -1,6 +1,6 @@
 Breakpoint 1 at 0xea: file source/main.c, line 21.
 Note: automatically using hardware breakpoints for read-only addresses.
-"PORTA: 0x00 => PORTB: 4"..."PORTA: 0x01 => PORTB: 3"..."PORTA: 0x03 => PORTB: 2"..."PORTA: 0x07 => PORTB: 1"...======================================================
+"PORTA: 0x00 => PORTB: 4"..."PORTA: 0x01 => PORTB: 3"..."PORTA: 0x03 => PORTB: 2"..."PORTA: 0x07 => PORTB: 1"..."PORTA: 0x0F => PORTB: 0"...======================================================
 Running all tests..."
 
 "PINA: 0x00, PINB: 0x00 => PORTC: 0"...======================================================
