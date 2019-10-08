@@ -58,6 +58,30 @@ continue 5
 expectPORTC 14
 checkResult
 
+test "Fuel level is either 7 or 8 or 9 => PORTC: 28"
+setPINA 0x07
+setPINA 0x08
+setPINA 0x09
+continue 5
+expectPORTC 28
+checkResult
+
+test "Fuel level is either 10 or 11 or 12 => PORTC: 30"
+setPINA 0x0A
+setPINA 0x0B
+setPINA 0x0C
+continue 5
+expectPORTC 30
+checkResult
+
+test "Fuel level is either 13 or 14 or 15 => PORTC: 31"
+setPINA 0x0D
+setPINA 0x0E
+setPINA 0x0F
+continue 5
+expectPORTC 31
+checkResult
+
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
 eval "shell echo Passed %d/%d tests.\n",$passed,$tests
