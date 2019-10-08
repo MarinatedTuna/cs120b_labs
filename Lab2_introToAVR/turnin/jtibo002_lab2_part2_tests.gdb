@@ -2,28 +2,28 @@
 # Author: jtibo002
 # Partner: Jenaro Vega
 
-test "PINA: 0x01 => PORTC: 0x01"
+test "PORTA: 0x00 => PORTB: 4"
 setPINA 0x00
 continue 5
-expectPORTC 0x01
+expectPORTB 4
 checkResult
 
-test "PINA: 0x02 => PORTC: 0x02"
-setPINA 0x02
+test "PORTA: 0x01 => PORTB: 3"
+setPINA 0x01
 continue 5
-expectPORTC 0x02
+expectPORTB 3
 checkResult
 
-test "PINA: 0x04 => PORTC: 0x03"
-setPINA 0x04
+test "PORTA: 0x03 => PORTB: 2"
+setPINA 0x03
 continue 5
-expectPORTC 0x04
+expectPORTB 2
 checkResult
 
-test "PINA: 0x08 => PORTC: 0x04"
-setPINA 0x08
+test "PORTA: 0x07 => PORTB: 1"
+setPINA 0x07
 continue 5
-expectPORTC 0x08
+expectPORTB 1
 checkResult
 
 # commands.gdb provides the following functions for ease:
