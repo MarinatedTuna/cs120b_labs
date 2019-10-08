@@ -36,133 +36,26 @@ continue 2
 # Set expect values
 expectPORTC 0
 # Check pass/fail
-checkResult
 
-# Add tests below
-
-test "PINA has one 1's => PORTC: 1"
+test "Fuel level is either 1 or 2 => PORTC: 5"
 setPINA 0x01
-continue 5
-expectPORTC 1
-checkResult
-
-test "PINA has two 1's => PORTC: 2"
 setPINA 0x02
-continue 5
-expectPORTC 2
-checkResult
-
-test "PINA has three 1's => PORTC: 3"
-setPINA 0x03
-continue 5
-expectPORTC 3
-checkResult
-
-test "PINA has four 1's => PORTC: 4"
-setPINA 0x04
-continue 5
-expectPORTC 4
-checkResult
-
-test "PINA has five 1's => PORTC: 5"
-setPINA 0x05
 continue 5
 expectPORTC 5
 checkResult
 
-test "PINA has six 1's => PORTC: 6"
-setPINA 0x06
-continue 5
-expectPORTC 6
-checkResult
-
-test "PINA has seven 1's => PORTC: 7"
-setPINA 0x07
-continue 5
-expectPORTC 7
-checkResult
-
-test "PINA has eight 1's => PORTC: 8"
-setPINA 0x08
-continue 5
-expectPORTC 8
-checkResult
-
-test "PINA has eight 1\'s and PINB has one 1\'s => PORTC: 9"
-setPINA 0x08
-setPINB 0x01
-continue 5
-expectPORTC 9
-checkResult
-
-test "PINA has eight 1\'s and PINB has two 1\'s => PORTC: 10"
-setPINA 0x08
-setPINB 0x02
-continue 5
-expectPORTC 10
-checkResult
-
-test "PINA has eight 1\'s and PINB has three 1\'s => PORTC: 11"
-setPINA 0x08
-setPINB 0x03
-continue 5
-expectPORTC 11
-checkResult
-
-test "PINA has eight 1\'s and PINB has four 1\'s => PORTC: 12"
-setPINA 0x08
-setPINB 0x04
+test "Fuel level is either 3 or 4 => PORTC: 12"
+setPINA 0x03
+setPINA 0x04
 continue 5
 expectPORTC 12
 checkResult
 
-test "PINA has eight 1\'s and PINB has five 1\'s => PORTC: 13"
-setPINA 0x08
-setPINB 0x05
-continue 5
-expectPORTC 13
-checkResult
-
-test "PINA has eight 1\'s and PINB has six 1\'s => PORTC: 14"
-setPINA 0x08
-setPINB 0x06
+test "Fuel level is either 5 or 6 => PORTC: 14"
+setPINA 0x05
+setPINA 0x06
 continue 5
 expectPORTC 14
-checkResult
-
-test "PINA has eight 1\'s and PINB has seven 1\'s => PORTC: 15"
-setPINA 0x08
-setPINB 0x07
-continue 5
-expectPORTC 15
-checkResult
-
-test "PINA has eight 1\'s and PINB has eight 1\'s => PORTC: 16"
-setPINA 0x08
-setPINB 0x08
-continue 5
-expectPORTC 16
-checkResult
-
-test "PINA has seven 1\'s and PINB has eight 1\'s => PORTC: 15"
-setPINA 0x07
-setPINB 0x08
-continue 5
-expectPORTC 15
-checkResult
-
-test "PINA has seven 1\'s and PINB has seven 1\'s => PORTC: 14"
-setPINA 0x07
-setPINB 0x07
-continue 5
-expectPORTC 14
-checkResult
-
-test "PINA has three 1\'s and PINB has five 1\'s => PORTC: 8"
-setPINA 0x03
-setPINB 0x05
-continue 5
-expectPORTC 8
 checkResult
 
 # Report on how many tests passed/tests ran

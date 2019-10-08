@@ -17,86 +17,30 @@ int main(void) {
 
     //inputs
     DDRA = 0x00; PORTA = 0xFF;
-    DDRB = 0x00; PORTB = 0xFF;
 
     //outputs
     DDRC = 0xFF; PORTC = 0x00;
 
-    //temp variables
-//    unsigned char count = 0;
+    unsigned char store = 0;
 
     /* Insert your solution below */
     while (1) {
-	if(PA0 == 0 && PA1 == 0 && PA2 == 0 && PA3 == 0 && PA4 == 0 && PA5 == 0 && PA6 == 0 && PA7 == 0) {
-	    PORTC = PINA;
+	if(PINA == 1 || PINA == 2){
+	    //PA0 or PA1 is 1
+	    //PC5 = 1;
+	    PINC = PC5;
+	    PORTC = PINC;
 	}
-        if(PA0 == 1) {
-            PINA = PINA + 1;
-	    PORTC = PINA;
+	if(PINA == 3 || PINA == 4) {
+	    store = PC5 + PC4;
+	    PINC = store;
+	    PORTC = PINC;
 	}
-	if(PA1 == 1) {
-	    PINA = PINA + 1;
-	    PORTC = PINA;
+	if(PINA == 5 || PINA == 6) {
+	    store = PC5 + PC4 + PC3;
+	    PINC = store;
+	    PORTC = PINC;	
 	}
-	if(PA2 == 1) {
-	    PINA = PINA + 1;
-	    PORTC = PINA;
-	}
-	if(PA3 == 1) {
-	    PINA = PINA + 1;
-	    PORTC = PINA;
-	}
-	if(PA4 == 1) {
-	    PINA = PINA + 1;
-	    PORTC = PINA;
-	}
-	if(PA5 == 1) {	
-	    PINA = PINA + 1;
-	    PORTC = PINA;
-	}
-	if(PA6 == 1) {
-	    PINA = PINA + 1;
-	    PORTC = PINA;
-	}
-	if(PA7 == 1) {
-	    PINA = PINA + 1;
-	    PORTC = PINA;
-	}
-
-	//Now add PINB 1's
-	
-	if(PB0 == 1) {
-	    PINB = PINB + 1;
-	    PORTC = PINA + PINB;
-	}
-	if(PB1 == 1) {
-	    PINB = PINB + 1;
-	    PORTC = PINA + PINB;
-	}
-	if(PB2 == 1) {
-	    PINB = PINB + 1;
-	    PORTC = PINA + PINB;
-	}
-	if(PB3 == 1) {
-	    PINB = PINB + 1;
-	    PORTC = PINA + PINB;
-	}
-	if(PB4 == 1) {
-	    PINB = PINB + 1;
-	    PORTC = PINA + PINB;
-	}
-	if(PB5 == 1) {
-	    PINB = PINB + 1;
-	    PORTC = PINA + PINB;
-	}
-	if(PB6 == 1) {
-	    PINB = PINB + 1;
-	    PORTC = PINA + PINB;
-	}
-	if(PB7 == 1) {
-	    PINB = PINB + 1;
-	    PORTC = PINA + PINB;
-	}			
     }
     return 1;
 }
