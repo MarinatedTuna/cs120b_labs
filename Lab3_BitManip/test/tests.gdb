@@ -1,5 +1,5 @@
 # Test file for Lab3_BitManip
-
+# Partner name: Jenaro Vega
 
 # commands.gdb provides the following functions for ease:
 #   test "<message>"
@@ -39,6 +39,54 @@ expectPORTC 0
 checkResult
 
 # Add tests below
+
+test "PINA has one 1's => PORTC: 1"
+setPINA 0x01
+continue 5
+expectPORTC 1
+checkResult
+
+test "PINA has two 1's => PORTC: 2"
+setPINA 0x02
+continue 5
+expectPORTC 2
+checkResult
+
+test "PINA has three 1's => PORTC: 3"
+setPINA 0x03
+continue 5
+expectPORTC 3
+checkResult
+
+test "PINA has four 1's => PORTC: 4"
+setPINA 0x04
+continue 5
+expectPORTC 4
+checkResult
+
+test "PINA has five 1's => PORTC: 5"
+setPINA 0x05
+continue 5
+expectPORTC 5
+checkResult
+
+test "PINA has six 1's => PORTC: 6"
+setPINA 0x06
+continue 5
+expectPORTC 6
+checkResult
+
+test "PINA has seven 1's => PORTC: 7"
+setPINA 0x07
+continue 5
+expectPORTC 7
+checkResult
+
+test "PINA has eight 1's => PORTC: 8"
+setPINA 0x08
+continue 5
+expectPORTC 8
+checkResult
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
