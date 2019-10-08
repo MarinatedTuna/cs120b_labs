@@ -13,37 +13,33 @@
 #endif
 
 int main(void) {
-    DDRA = 0x00; PORTA = 0x0F;  
-    DDRB = 0xFF; PORTB = 0x00;
-    PORTC = 0x00;
+    DDRA = 0x00; PORTA = 0xFF;  
+    DDRB = 0x00; PORTB = 0xFF;
+    DDRC = 0xFF; PORTC = 0x00;
     //unsigned char cntavail = 4;
 
     while(1) {
-        if(PORTA == 0x00) {
-	   // cntavail = 4;
-	   PORTC = 4;  
-        }
-else	if (PORTA == 0x01 || PORTA == 0x02 || PORTA == 0x04 || PORTA == 0x08) {
-	  //  cntavail = 3;
-	  PORTC = 3;
+
+	if(PINA == 0x00) {
+	   PORTA = PINA;
+	   PORTC = 4;
 	}
-else	if (PORTA == 0x03 || PORTA == 0x06 || PORTA == 0x0C || PORTA == 0x0A || PORTA == 0x05 || PORTA == 0x09) {
-	PORTC = 2; 
-	//   cntavail = 2;
+	else if(PINA == 0x01 || PINA == 0x02 || PINA == 0x04 || PINA == 0x08) {
+	   PORTA = PINA;
+	   PORTC = 3;
 	}
-else	if (PORTA == 0x07 || PORTA == 0x0E || PORTA == 0x0D || PORTA == 0x0B) {
-	 PORTC = 1;
-	 //cntavail = 1;
+	else if(PINA == 0x03 || PINA == 0x06 || PINA == 0x0C || PINA == 0x0A || PINA == 0x05 || PINA == 0x09) {
+	   PORTA = PINA;
+	   PORTC = 2;
 	}
-else 	if (PORTA == 0x0F) {
-	PORTC = 0;	 
-//   cntavail = 0;
+	else if(PINA == 0x07 || PINA == 0x0E || PINA == 0x0D || PINA == 0x0B) {
+	   PORTA = PINA;
+	   PORTC = 1;
 	}
-	// If full
-	//if(PORTA == 0x0F) {
-	//    PORTC = 0x80;
-	//}
-	//PORTC = 4;
+	else if(PINA == 0x0F) {
+	   PORTA = PINA;
+	   PORTC = 0;
+	} 
     } 
     return 0; 
 }  
