@@ -13,49 +13,33 @@
 #endif
 
 int main(void) {
-    DDRA = 0x00; PORTA = 0x0FF;  
+    DDRA = 0x00; PORTA = 0xFF;  
     DDRB = 0xFF; PORTB = 0x00;
-    PORTC = 0x00;
-
-    unsigned char cntavail = 0x00;
-    unsigned char ports = PINA & 0x0F;
-    unsigned char one = 0x01;
+    //DDRC = 0xFF; PORTC = 0x00;
+    //unsigned char cntavail = 4;
 
     while(1) {
-        if((ports & 0x01) && 0x01) {
-	    cntavail = cntavail + one;  
-        }
-        if((ports & 0x02) && 0x02) {
-            cntavail = cntavail + one;
-        }
-        if((ports & 0x04) && 0x04) {
-            cntavail = cntavail + one;
-        }
-        if((ports & 0x08) && 0x08) {
-            cntavail = cntavail + one;
-        }
 
-        // Actually counted what wasn't open so we need to flip it to show number of spaces open
-        if(cntavail == 0x04) {
-	    cntavail = 0x00;
-        }
-        else if(cntavail == 0x03) {
-	    cntavail = 0x01;
-        }
-        else if(cntavail == 0x02) {
-	    cntavail = 0x02;
+	if(PINA == 0x00) {
+	   PORTA = PINA;
+	   PORTB = 4;
 	}
-        else if(cntavail == 0x01) {
-	    cntavail = 0x03;
-        }
-	else if(cntavail == 0x00) {
-	    cntavail = 0x04;
+	if(PINA == 0x01 || PINA == 0x02 || PINA == 0x04 || PINA == 0x08) {
+	   PORTA = PINA;
+	   PORTB = 3;
 	}
-	else {
-	    cntavail = 0x04;
+	else if(PINA == 0x03 || PINA == 0x06 || PINA == 0x0C || PINA == 0x0A || PINA == 0x05 || PINA == 0x09) {
+	   PORTA = PINA;
+	   PORTB = 2;
 	}
-	
-	PORTC = cntavail;
+	else if(PINA == 0x07 || PINA == 0x0E || PINA == 0x0D || PINA == 0x0B) {
+	   PORTA = PINA;
+	   PORTB = 1;
+	}
+	else if(PINA == 0x0F) {
+	   PORTA = PINA;
+	   PORTB = 0;
+	}
     } 
     return 0; 
 }  
