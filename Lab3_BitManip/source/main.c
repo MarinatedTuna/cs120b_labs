@@ -39,19 +39,19 @@ int main(void) {
 	if(PINA == 5 || PINA == 6) {
 //	    store = PC5 | PC4 | PC3;
 //	    previously 0x00 | (PC5 | PC4 | PC3);
-	    PINC = (PC5 | PC4 | PC3);
+	    PINC = (PC5 + PC4 + PC3);
 	    PORTC = PINC;	
 	}
 	if(PINA == 7 || PINA == 8 || PINA == 9) {
-	    PINC = (PC5 | PC4 | PC3 | PC2);
+	    PINC = (PC5 + PC4 + PC3 + PC2);
 	    PORTC = PINC;
 	}
 	if(PINA == 10 || PINA == 11 || PINA == 12) {
-	    PINC = (PC5 | PC4 | PC3 | PC2 | PC1);
+	    PINC = (PC5 + PC4 + PC3 + PC2 + PC1);
 	    PORTC = PINC;
 	}
 	if(PINA == 13 || PINA == 14 || PINA == 15) {
-	    PINC = (PC5 | PC4 | PC3 | PC2 | PC1 | PC0);
+	    PINC = (PC5 + PC4 + PC3 + PC2 + PC1 + PC0);
 	    PORTC = PINC;
 	}
     }
