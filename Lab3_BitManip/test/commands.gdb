@@ -106,16 +106,16 @@ end
 #       The value to set the pin to (can be decimal or hexidecimal
 #       Example: setPINA 0x01
 define setPINA
-    set {char}0x800020=$arg0
+    set {unsigned char}0x800020=$arg0
 end
 define setPINB
-    set {char}0x800023=$arg0
+    set {unsigned char}0x800023=$arg0
 end
 define setPINC
-    set {char}0x800026=$arg0
+    set {unsigned char}0x800026=$arg0
 end
 define setPIND
-    set {char}0x800029=$arg0
+    set {unsigned char}0x800029=$arg0
 end
 
 #   test "<message>"
