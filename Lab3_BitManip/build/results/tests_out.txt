@@ -3,17 +3,5 @@ Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
 
-"PINA: 0x00, PINB: 0x00 => PORTC: 0"..."Fuel level is either 1 or 2 => PORTC: 5"..."Fuel level is either 3 or 4 => PORTC: 12"..."Fuel level is either 5 or 6 => PORTC: 14"...
-	Expected 14 
-	PORTC '0x800028:	0x00
-"Fuel level is either 7 or 8 or 9 => PORTC: 28"...
-	Expected 28 
-	PORTC '0x800028:	0x0e
-"Fuel level is either 10 or 11 or 12 => PORTC: 30"...
-	Expected 30 
-	PORTC '0x800028:	0x01
-"Fuel level is either 13 or 14 or 15 => PORTC: 31"...
-	Expected 31 
-	PORTC '0x800028:	0x0e
-======================================================
+"PINA: 0x00, PINB: 0x00 => PORTC: 0"..."Fuel level is either 1 or 2 with low fuel sensor => PORTC: 96"..."Fuel level is either 3 or 4 with low fuel sensor => PORTC: 48"..."Fuel level is either 5 or 6 => PORTC: 56"..."Fuel level is either 7 or 8 or 9 => PORTC: 60"..."Fuel level is either 10 or 11 or 12 => PORTC: 62"..."Fuel level is either 13 or 14 or 15 => PORTC: 63"...======================================================
 Quitting: Remote doesn't know how to detach
