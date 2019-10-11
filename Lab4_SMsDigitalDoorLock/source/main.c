@@ -18,7 +18,9 @@ void Tick();
 
 int main(void) {
     /* Insert DDR and PORT initializations */
-    
+    DDRA = 0x00; PORTA = 0xFF; //input    
+    DDRB = 0xFF; PORTB = 0x00; //output
+
     state = Start;
 
     /* Insert your solution below */
@@ -30,7 +32,29 @@ int main(void) {
 
 void Tick() {
     switch(state) {
+        case Start:
+            state = OFF;
+            break;
+        case OFF:
+            state = PB0 ? ON : OFF;
+	    break;
+	case ON:
+	    state = PB0 ? ON : OFF;
+	    break;
         default:
 	    break;
-    }
+    } // Transitions
+
+    switch(state) {
+	case Start:
+	    break;
+	case OFF:
+	    PORTB = ~PA0;
+	    break;
+	case ON:
+	    PORTB = PA0; 
+	    break;
+	default:
+	    break;
+    } // State actions
 }
