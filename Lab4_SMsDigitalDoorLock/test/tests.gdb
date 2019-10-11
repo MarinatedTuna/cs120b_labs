@@ -44,6 +44,14 @@ expect state PRESSPA1
 expectPORTC 0x06
 checkResult 
 
+test "Current state: PRESSPA0\n State to transition to: PRESSPA1\n Setting PORTC to 0x04\n Expected PORTC => 0x03"
+setPINA 0x02 #PA1
+setPINC 0x04
+set state = PRESSPA0
+continue 5
+expect state PRESSPA1
+expectPORTC 0x03
+checkResult
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
 eval "shell echo Passed %d/%d tests.\n",$passed,$tests
