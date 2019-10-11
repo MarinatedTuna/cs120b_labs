@@ -40,10 +40,12 @@ checkResult
 
 # Add tests below
 
-test "State is OFF so PB0's LED should be on"
-set state = OFF
+test "Current state: Start\nState to transition to: PRESSPA0\nPORTC => 0x08"
+setPINA 0x00
+setPINC 0x07
+set state = PRESSPA0
 continue 5
-expectPORTB 0x00
+expectPORTC 0x08
 checkResult
 
 test "State is ON so PB1's LED should be on"

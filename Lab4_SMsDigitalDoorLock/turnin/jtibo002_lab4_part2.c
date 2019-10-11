@@ -1,7 +1,7 @@
 /*	Author: jtibo002
  *  Partner(s) Name: Jenaro Vega
  *	Lab Section:
- *	Assignment: Lab #  Exercise #
+ *	Assignment: Lab #4  Exercise #2
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -38,15 +38,43 @@ void Tick() {
             if(PA0 && PORTC <= 9) {
 	        state = PRESSPA0;
 	    }
+	    else if(PA1 && PORTC >= 0) {
+	        state = PRESSPA1;
+	    }
+	    else {
+		state = Start;
+	    }
             break;
         case PRESSPA0:
             //state = PB0 ? ON : OFF;
-
+	    if(PA1 && PORTC >= 0) {
+	        state = PRESSPA1;
+	    }
+	    else if(PA0 && PA1){
+	        state = RELEASEBOTH;
+	    }
+	    else {
+	        state = PRESSPA0;
+	    }
 	    break;
 	case PRESSPA1:
-	    //state = PB0 ? OFF : ON; // check again
+	    if(PA0 && PORTC <= 9) {
+	        state = PRESSPA0;
+	    }
+	    else if(PA0 && PA1) {
+	        state = RELEASEBOTH;
+	    }
+	    else {
+		state = PRESSPA1;
+	    }
 	    break;
 	case RELEASEBOTH:
+	    if (PA0) {
+	        state = PRESSPA0;
+	    }
+	    else {
+	        state = RELEASEBOTH;
+	    }
 	    break;
         default:
 	    break;
