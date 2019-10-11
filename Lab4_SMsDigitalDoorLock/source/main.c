@@ -42,17 +42,16 @@ void Tick() {
 	        //PINA = PA1
 	        state = PRESSPA1;
 	    }
-	    else {
-		state = Start;
-	    }
+	    //else {
+	//	state = Start;
+	    //}
             break;
         case PRESSPA0:
-            //state = PB0 ? ON : OFF;
 	    if(PINA == 0x02 && PORTC >= 0) {
 	        //PINA = PA1
 	        state = PRESSPA1;
 	    }
-	    else if(PINA == 0x03){
+	    else if(PINA == 0x03 && PORTC >= 0){
 	        //PINA = PA0 && PA1
 	        state = RELEASEBOTH;
 	    }
