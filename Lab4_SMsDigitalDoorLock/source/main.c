@@ -38,7 +38,8 @@ void Tick() {
 		//PINA = PA0
 	        state = PRESSPA0;
 	    }
-	    else if(PA1 && PORTC >= 0) {
+	    else if(PINA == 0x02 && PORTC >= 0) {
+	        //PINA = PA1
 	        state = PRESSPA1;
 	    }
 	    else {
@@ -85,7 +86,7 @@ void Tick() {
 	    PORTC = 7;
 	    break;
 	case PRESSPA0:
-	    PORTC = PORTC + 1; //check again later
+	    PORTC = PORTC + 1; 
 	    break;
 	case PRESSPA1:
 	    PORTC = PORTC - 1; 

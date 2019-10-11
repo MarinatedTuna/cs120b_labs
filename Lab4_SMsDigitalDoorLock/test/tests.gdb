@@ -26,33 +26,22 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 
-# Example test:
-test "Example test case we can honestly just ignore"
-# Set inputs
-setPINA 0x00
-setPINB 0x00
-# Continue for several ticks
-continue 2
-# Set expect values
-expectPORTC 0
-# Check pass/fail
-checkResult
-
 # Add tests below
 
 test "Current state: Start\nState to transition to: PRESSPA0\nPORTC => 0x08"
 setPINA 0x01 #PA0
-#setPINC 0x07
 set state = Start
 continue 5
 expect state PRESSPA0
 expectPORTC 0x08
 checkResult
 
-test "Fill later"
-set state = PRESSPA1
+test "Curent state: Start\n State to transition to: PRESSPA1\nPORTC => 0x06"
+setPINA 0x02 #PA1
+set state = Start
 continue 5
-expectPORTC 0x01
+expect state PRESSPA1
+expectPORTC 0x06
 checkResult 
 
 # Report on how many tests passed/tests ran
