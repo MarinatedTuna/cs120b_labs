@@ -14,12 +14,23 @@
 
 enum States {Start, OFF, ON} state;
 
+void Tick();
+
 int main(void) {
     /* Insert DDR and PORT initializations */
+    
+    state = Start;
 
     /* Insert your solution below */
     while (1) {
-
+        Tick();
     }
     return 1;
+}
+
+void Tick() {
+    switch(state) {
+        default:
+	    break;
+    }
 }
