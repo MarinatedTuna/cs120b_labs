@@ -12,6 +12,8 @@
 #include "simAVRHeader.h"
 #endif
 
+enum States {Start, OFF, ON} state;
+
 int main(void) {
     /* Insert DDR and PORT initializations */
 
