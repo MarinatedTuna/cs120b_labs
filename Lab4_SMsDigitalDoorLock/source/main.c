@@ -34,7 +34,8 @@ void Tick() {
     switch(state) {
         case Start:
             //state = OFF;
-            if(PA0 && PORTC <= 9) {
+            if(PINA == 0x01 && PORTC <= 9) {
+		//PINA = PA0
 	        state = PRESSPA0;
 	    }
 	    else if(PA1 && PORTC >= 0) {

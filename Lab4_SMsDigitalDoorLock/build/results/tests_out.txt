@@ -1,4 +1,4 @@
-Breakpoint 1 at 0x186: file source/main.c, line 25.
+Breakpoint 1 at 0x1a0: file source/main.c, line 25.
 Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
@@ -8,6 +8,8 @@ Running all tests..."
 	PORTC '0x800028:	0x06
 "Current state: Start
 State to transition to: PRESSPA0
-PORTC => 0x08"...test/tests.gdb:44: Error in sourced command file:
-No symbol "PA0" in current context.
+PORTC => 0x08"..."Fill later"...
+	Expected 0x01 
+	PORTC '0x800028:	0x08
+======================================================
 Quitting: Remote doesn't know how to detach
