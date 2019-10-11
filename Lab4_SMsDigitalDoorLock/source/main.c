@@ -48,10 +48,12 @@ void Tick() {
             break;
         case PRESSPA0:
             //state = PB0 ? ON : OFF;
-	    if(PA1 && PORTC >= 0) {
+	    if(PINA == 0x02 && PORTC >= 0) {
+	        //PINA = PA1
 	        state = PRESSPA1;
 	    }
-	    else if(PA0 && PA1){
+	    else if(PINA == 0x03){
+	        //PINA = PA0 && PA1
 	        state = RELEASEBOTH;
 	    }
 	    else {
@@ -59,10 +61,12 @@ void Tick() {
 	    }
 	    break;
 	case PRESSPA1:
-	    if(PA0 && PORTC <= 9) {
+	    if(PINA == 0x01 && PORTC <= 9) {
+	        //PINA = PA0
 	        state = PRESSPA0;
 	    }
-	    else if(PA0 && PA1) {
+	    else if(PINA == 0x03) {
+		//PINA = PA0 && PA1
 	        state = RELEASEBOTH;
 	    }
 	    else {
@@ -70,7 +74,8 @@ void Tick() {
 	    }
 	    break;
 	case RELEASEBOTH:
-	    if (PA0) {
+	    if(PINA == 0x01) {
+		//PINA = PA0
 	        state = PRESSPA0;
 	    }
 	    else {
