@@ -1,7 +1,7 @@
-Breakpoint 1 at 0xf0: file source/main.c, line 21.
+Breakpoint 1 at 0x15e: file source/main.c, line 27.
 Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
 
-"PINA: 0x00, PINB: 0x00 => PORTC: 0"...======================================================
+"Example test case we can honestly just ignore"..."State is OFF so PB0's LED should be on"..."State is ON so PB1's LED should be on"...======================================================
 Quitting: Remote doesn't know how to detach
