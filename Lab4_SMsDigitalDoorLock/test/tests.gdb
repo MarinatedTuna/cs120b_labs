@@ -41,17 +41,18 @@ checkResult
 # Add tests below
 
 test "Current state: Start\nState to transition to: PRESSPA0\nPORTC => 0x08"
-setPINA 0x00
-setPINC 0x07
-set state = PRESSPA0
+setPINA 0x01 #PA0
+#setPINC 0x07
+set state = Start
 continue 5
+expect state PRESSPA0
 expectPORTC 0x08
 checkResult
 
-test "State is ON so PB1's LED should be on"
-set state = ON
+test "Fill later"
+set state = PRESSPA1
 continue 5
-expectPORTB 0x01
+expectPORTC 0x01
 checkResult 
 
 # Report on how many tests passed/tests ran

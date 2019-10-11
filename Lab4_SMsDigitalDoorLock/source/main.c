@@ -21,10 +21,9 @@ int main(void) {
     DDRA = 0x00; PORTA = 0xFF; //input    
     DDRC = 0xFF; PORTC = 0x00; //output
 
-    state = Start;
-
     /* Insert your solution below */
     while (1) {
+	state = Start;
         PORTC = 7;
         Tick();
     }
@@ -82,6 +81,7 @@ void Tick() {
 
     switch(state) {
 	case Start:
+	    PORTC = 7;
 	    break;
 	case PRESSPA0:
 	    PORTC = PORTC + 1; //check again later
