@@ -1,7 +1,11 @@
-Breakpoint 1 at 0x15e: file source/main.c, line 27.
+Breakpoint 1 at 0x12e: file source/main.c, line 27.
 Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
 
-"Example test case we can honestly just ignore"..."State is OFF so PB0's LED should be on"..."State is ON so PB1's LED should be on"...======================================================
+"Example test case we can honestly just ignore"...
+	Expected 0 
+	PORTC '0x800028:	0x07
+"State is OFF so PB0's LED should be on"...test/tests.gdb:44: Error in sourced command file:
+No symbol "OFF" in current context.
 Quitting: Remote doesn't know how to detach

@@ -12,19 +12,20 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States {Start, OFF, ON} state;
+enum States {Start, PRESSPA0, PRESSPA1, RELEASEBOTH} state;
 
 void Tick();
 
 int main(void) {
     /* Insert DDR and PORT initializations */
     DDRA = 0x00; PORTA = 0xFF; //input    
-    DDRB = 0xFF; PORTB = 0x00; //output
+    DDRC = 0xFF; PORTC = 0x00; //output
 
     state = Start;
 
     /* Insert your solution below */
     while (1) {
+        PORTC = 7;
         Tick();
     }
     return 1;
@@ -33,13 +34,19 @@ int main(void) {
 void Tick() {
     switch(state) {
         case Start:
-            state = OFF;
+            //state = OFF;
+            if(PA0 && PORTC <= 9) {
+	        state = PRESSPA0;
+	    }
             break;
-        case OFF:
-            state = PB0 ? ON : OFF;
+        case PRESSPA0:
+            //state = PB0 ? ON : OFF;
+
 	    break;
-	case ON:
-	    state = PB0 ? OFF : ON; // check again
+	case PRESSPA1:
+	    //state = PB0 ? OFF : ON; // check again
+	    break;
+	case RELEASEBOTH:
 	    break;
         default:
 	    break;
@@ -48,11 +55,14 @@ void Tick() {
     switch(state) {
 	case Start:
 	    break;
-	case OFF:
-	    PORTB = 0x00; //check again later
+	case PRESSPA0:
+	    PORTC = PORTC + 1; //check again later
 	    break;
-	case ON:
-	    PORTB = 0x01; 
+	case PRESSPA1:
+	    PORTC = PORTC - 1; 
+	    break;
+	case RELEASEBOTH:
+	    PORTC = 0;
 	    break;
 	default:
 	    break;
