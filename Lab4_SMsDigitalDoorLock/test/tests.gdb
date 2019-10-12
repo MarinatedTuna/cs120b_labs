@@ -67,6 +67,22 @@ expect state Start
 expectPORTC 0
 checkResult
 
+test "Testing broken sequence from RELEASE\nState to transition to: Start\nExpected PORTC => 0"
+setPINA 0x06
+set state = RELEASE
+continue 5
+expect state Start
+expectPORTC 0
+checkResult
+
+test "Testing trying to lock while not in the house what from PRESS2\nState to transition to: PRESS2\nExpected PORTC => 1"
+setPINA 0x09
+set state = PRESS2
+continue 5
+expect state PRESS2
+expectPORTC 1
+checkResult 
+
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
 eval "shell echo Passed %d/%d tests.\n",$passed,$tests

@@ -18,5 +18,9 @@ Expected PORTC => 0"setPINA...
 	PORTC '0x800028:	0x01
 "Testing broken sequence from PRESS
 State to transition to: Start
-Expected PORTC => 0"...======================================================
+Expected PORTC => 0"..."Testing broken sequence from RELEASE
+State to transition to: Start
+Expected PORTC => 0"..."Testing trying to lock while not in the house what from PRESS2
+State to transition to: PRESS2
+Expected PORTC => 1"...======================================================
 Quitting: Remote doesn't know how to detach
