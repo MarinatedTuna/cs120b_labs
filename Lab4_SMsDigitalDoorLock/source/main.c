@@ -12,7 +12,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States {Start, PRESSPA0, PRESSPA1, RELEASEBOTH} state;
+enum States {} state;
 
 void Tick();
 
@@ -23,82 +23,18 @@ int main(void) {
 
     /* Insert your solution below */
     while (1) {
-	state = Start;
-        PORTC = 7;
         Tick();
     }
     return 1;
 }
 
 void Tick() {
-    switch(state) {
-        case Start:
-            //state = OFF;
-            if(PINA == 0x01 && PORTC < 9) {
-		//PINA = PA0
-	        state = PRESSPA0;
-	    }
-	    else if(PINA == 0x02 && PORTC >= 0) {
-	        //PINA = PA1
-	        state = PRESSPA1;
-	    }
-	    else if(PINA == 0x03 && PORTC == 9) {
-	        //Cannot exceed 9
-		state = RELEASEBOTH;
-	    }
-            break;
-        case PRESSPA0:
-	    if(PINA == 0x02 && PORTC >= 0) {
-	        //PINA = PA1
-	        state = PRESSPA1;
-	    }
-	    else if(PINA == 0x03 && PORTC >= 0){
-	        //PINA = PA0 && PA1
-	        state = RELEASEBOTH;
-	    }
-	    else {
-	        state = PRESSPA0;
-	    }
-	    break;
-	case PRESSPA1:
-	    if(PINA == 0x01 && PORTC < 9) {
-	        //PINA = PA0
-	        state = PRESSPA0;
-	    }
-	    else if(PINA == 0x03) {
-		//PINA = PA0 && PA1
-	        state = RELEASEBOTH;
-	    }
-	    else {
-		state = PRESSPA1;
-	    }
-	    break;
-	case RELEASEBOTH:
-	    if(PINA == 0x01) {
-		//PINA = PA0
-	        state = PRESSPA0;
-	    }
-	    else {
-	        state = RELEASEBOTH;
-	    }
-	    break;
+    switch(state) {        
         default:
 	    break;
     } // Transitions
 
     switch(state) {
-	case Start:
-	    PORTC = 7;
-	    break;
-	case PRESSPA0:
-	    PORTC = PORTC + 1; 
-	    break;
-	case PRESSPA1:
-	    PORTC = PORTC - 1; 
-	    break;
-	case RELEASEBOTH:
-	    PORTC = 0;
-	    break;
 	default:
 	    break;
     } // State actions
