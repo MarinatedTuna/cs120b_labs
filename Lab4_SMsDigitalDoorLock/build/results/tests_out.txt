@@ -1,4 +1,4 @@
-Breakpoint 1 at 0x216: file source/main.c, line 25.
+Breakpoint 1 at 0x234: file source/main.c, line 25.
 Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
@@ -9,11 +9,13 @@ PORTC => 0x08"..."Curent state: Start
  State to transition to: PRESSPA1
 Expected PORTC => 0x06"..."Current state: PRESSPA0
  State to transition to: PRESSPA1
-Expected PORTC => 0x06"..."Current state: PRESSPA0
+Expected PORTC => 0x06"..."Current state: Start
  State to transition to: RELEASEBOTH
 Expected PORTC => 0x00"...
 	Expected RELEASEBOTH but got state:0
 	Expected 0x00 
 	PORTC '0x800028:	0x07
-======================================================
+"Current state: PRESSPA1
+ State to transition to: PRESSPA0
+ Expected PORTC: 0x08"...======================================================
 Quitting: Remote doesn't know how to detach

@@ -52,13 +52,21 @@ expect state PRESSPA1
 expectPORTC 0x06
 checkResult
 
-test "Current state: PRESSPA0\n State to transition to: RELEASEBOTH\nExpected PORTC => 0x00"
-#setPINA 0x03 #PA1 && PA0
-set state = PRESSPA0
+test "Current state: Start\n State to transition to: RELEASEBOTH\nExpected PORTC => 0x00"
 setPINA 0x03 #PA1 && PA0
+set state = Start
+#setPINA 0x03 #PA1 && PA0
 continue 5
 expect state RELEASEBOTH
 expectPORTC 0x00
+checkResult
+
+test "Current state: PRESSPA1\n State to transition to: PRESSPA0\n Expected PORTC: 0x08"
+setPINA 0x01
+set state = PRESSPA1
+continue 5
+expect state PRESSPA0
+expectPORTC 0x08
 checkResult
 
 # Report on how many tests passed/tests ran
