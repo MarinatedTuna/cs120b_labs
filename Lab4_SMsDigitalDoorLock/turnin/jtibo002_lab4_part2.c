@@ -1,5 +1,5 @@
-/*	Author: jtibo002
- *  Partner(s) Name: Jenaro Vega
+/*	Author: jvega008
+ *  Partner(s) Name: Joseph Tibog, Jenaro Vega
  *	Lab Section:
  *	Assignment: Lab #4  Exercise #2
  *	Exercise Description: [optional - include for your own benefit]
@@ -12,94 +12,151 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States {Start, PRESSPA0, PRESSPA1, RELEASEBOTH} state;
 
-void Tick();
+enum States {init, press_sub, press_add, rel_sub, rel_add, wait, reset_p, reset_r} state;
 
-int main(void) {
-    /* Insert DDR and PORT initializations */
-    DDRA = 0x00; PORTA = 0xFF; //input    
-    DDRC = 0xFF; PORTC = 0x00; //output
+int sm_tick(int state){
+    unsigned char A0_add = PINA & 0x01;
+    unsigned char A1_sub = PINA & 0x02;
+    if(state == init){
+	PORTC = 7;
+    }   
+    switch(state){
+        case init:
+	    if(A1_sub && A0_add){
+		state = reset_p;
+		break;
+	    }
+	    else if(A0_add){
+	        state = press_add;
+		break;
+	    }
+	    else if(A1_sub){
+		state = press_sub;
+		break;
+	    }
+	    else{
+		state = init;
+		break;
+	    }
+	case press_sub:
+	     if(!A1_sub && !A0_add){
+		state = rel_sub;
+		break;
+	    }
+	    else if(A1_sub && A0_add){
+		state = reset_p;
+		break;
+	    }
+	    else{
+                state = press_sub;
+                break;
+            }
+	case press_add:
+             if(!A1_sub && !A0_add){
+                state = rel_add;
+                break;
+            }
+            else if(A1_sub && A0_add){
+                state = reset_p;
+                break;
+            }
+            else{
+                state = press_add;
+                break;
+            }
+	case rel_sub:
+	    state = wait;
+	    break;
+	case rel_add:
+	    state = wait;
+	    break;
+	case wait:
+	    if(A0_add && A1_sub){
+		state = reset_p;
+		break;
+	    }
+	    else if(A1_sub && (PORTC > 0)){
+		state = press_sub;
+		break;
+	    }
+	    else if(A0_add && (PORTC < 9)){
+		state = press_add;
+		break;
+	    }
+	    else{
+		state = wait;
+		break;
+	    }
+	case reset_p:
+	    if(A0_add && A1_sub){
+		state = reset_p;
+		break;
+	    }
+	    else{
+		state = reset_r;
+		break;
+	    }
+	case reset_r:
+	    if(A0_add && !A1_sub){
+		state = press_add;
+		break;
+	    }
+	    else if(A1_sub && !A0_add){
+		state = press_sub;
+		break;
+	    }
+	    else if(A1_sub && A0_add){
+		state = reset_p;
+		break;
+	    }
+	    else{
+		state = reset_r;
+		break;
+	    }
+	default:
+	    state = init;
+	    break;
 
-    /* Insert your solution below */
-    while (1) {
-	state = Start;
-        PORTC = 7;
-        Tick();
     }
-    return 1;
-}
-
-void Tick() {
-    switch(state) {
-        case Start:
-            //state = OFF;
-            if(PINA == 0x01 && PORTC < 9) {
-		//PINA = PA0
-	        state = PRESSPA0;
-	    }
-	    else if(PINA == 0x02 && PORTC >= 0) {
-	        //PINA = PA1
-	        state = PRESSPA1;
-	    }
-	    else if(PINA == 0x03 && PORTC == 9) {
-	        //Cannot exceed 9
-		state = RELEASEBOTH;
-	    }
-            break;
-        case PRESSPA0:
-	    if(PINA == 0x02 && PORTC >= 0) {
-	        //PINA = PA1
-	        state = PRESSPA1;
-	    }
-	    else if(PINA == 0x03 && PORTC >= 0){
-	        //PINA = PA0 && PA1
-	        state = RELEASEBOTH;
-	    }
-	    else {
-	        state = PRESSPA0;
-	    }
+    switch(state){
+	case init:
+	    PORTC = 7; 
 	    break;
-	case PRESSPA1:
-	    if(PINA == 0x01 && PORTC < 9) {
-	        //PINA = PA0
-	        state = PRESSPA0;
-	    }
-	    else if(PINA == 0x03) {
-		//PINA = PA0 && PA1
-	        state = RELEASEBOTH;
-	    }
-	    else {
-		state = PRESSPA1;
-	    }
+	case press_add:
 	    break;
-	case RELEASEBOTH:
-	    if(PINA == 0x01) {
-		//PINA = PA0
-	        state = PRESSPA0;
-	    }
-	    else {
-	        state = RELEASEBOTH;
-	    }
+	case press_sub:
 	    break;
-        default:
+	case rel_add:
+	    PORTC = PORTC + 1;
+	    state = wait;
 	    break;
-    } // Transitions
-
-    switch(state) {
-	case Start:
-	    PORTC = 7;
+	case rel_sub:
+	    PORTC = PORTC - 1;
+	    state = wait;
 	    break;
-	case PRESSPA0:
-	    PORTC = PORTC + 1; 
+	case wait: 
 	    break;
-	case PRESSPA1:
-	    PORTC = PORTC - 1; 
+	case reset_p:
 	    break;
-	case RELEASEBOTH:
+	case reset_r:
 	    PORTC = 0;
 	    break;
-	default:
-	    break;
-    } // State actions
+    }
+
+return state;
+
+}
+
+int main(void) {
+    
+    DDRA = 0x00; PORTA = 0xFF;
+    DDRC = 0xFF; PORTC = 0x00;
+   
+    int state = init;
+    while (1) {
+	state = sm_tick(state);
+	
+    }
+    return 1;
 }

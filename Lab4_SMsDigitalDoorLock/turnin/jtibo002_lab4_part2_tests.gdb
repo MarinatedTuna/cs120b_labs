@@ -1,5 +1,5 @@
-# Test file for Lab4_SMsDigitalDoorLock
-# Partner name: Jenaro Vega
+# Test file for Lab4_stateMachines
+
 
 # commands.gdb provides the following functions for ease:
 #   test "<message>"
@@ -26,56 +26,120 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 
-# Add tests below
 
-test "Current state: Start\nState to transition to: PRESSPA0\nPORTC => 0x08"
-setPINA 0x01 #PA0
-set state = Start
-continue 5
-expect state PRESSPA0
-expectPORTC 0x08
+test "PINA: 0x02, 0x00, 0x00 => PORTC: 6, state: wait"
+set state = init
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2 
+setPINA 0x00
+continue 2
+expectPORTC 0x06
+expect state wait
 checkResult
 
-test "Curent state: Start\n State to transition to: PRESSPA1\nExpected PORTC => 0x06"
-setPINA 0x02 #PA1
-set state = Start
-continue 5
-expect state PRESSPA1
-expectPORTC 0x06
-checkResult 
-
-test "Current state: PRESSPA0\n State to transition to: PRESSPA1\nExpected PORTC => 0x06"
-setPINA 0x02 #PA1
-set state = PRESSPA0
-continue 5
-expect state PRESSPA1
-expectPORTC 0x06
-checkResult
-
-test "Current state: Start\n State to transition to: RELEASEBOTH\nExpected PORTC => 0x00"
-setPINA 0x03 #PA1 && PA0
-set state = Start
-#setPINA 0x03 #PA1 && PA0
-continue 5
-expect state RELEASEBOTH
+test "PINA: 0x02, 0x00, 0x03, 0x00 => PORTC: 0, state: reset_r "
+set state = init
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x03
+continue 2
+setPINA 0x00
+continue 2
 expectPORTC 0x00
+expect state reset_r
 checkResult
 
-test "Current state: PRESSPA1\n State to transition to: PRESSPA0\n Expected PORTC: 0x08"
+test "PINA: 0x01, 0x00, 0x01, 0x00, 0x01, 0x00 => PORTC: 9, state:wait "
+set state = init
 setPINA 0x01
-set state = PRESSPA1
-continue 5
-expect state PRESSPA0
-expectPORTC 0x08
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+expectPORTC 0x09
+expect state wait
 checkResult
 
-test "Current state: RELEASEBOTH\n State to transition to: PRESSPA0\n Expected PORTC: 0x08"
-setPINA 0x01
-set state = RELEASEBOTH
-continue 5
-expect state PRESSPA0
-expectPORTC 0x08
+test "PINA: 0x02, 0x00, 0x00 => PORTC: 6, state: wait"
+set state = init
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x00
+continue 2
+expectPORTC 0x06
+expect state wait
 checkResult
+
+test "PINA: 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00 => PORTC:0 , state:wait "
+set state = init
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+expectPORTC 0x00
+expect state wait
+checkResult
+
+test "PINA: 0x02, 0x00, 0x02, 0x00, 0x01, 0x00 => PORTC: 6, state: wait"
+set state = init
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+expectPORTC 0x06
+expect state wait
+checkResult
+
+
+
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
