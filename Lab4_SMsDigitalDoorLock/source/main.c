@@ -32,17 +32,54 @@ int main(void) {
 void Tick() {
     switch(state) {
 	case Start:
-	    if(PA2) {
+	    if(PINA == 0x04) {
 	        state = PRESS;
 	    }
 	    else {
 	        state = Start;
-	    }	        
+	    }
+	    break;	
+	case PRESS:
+	    if(PINA == 0xFB) {
+	        state = RELEASE;
+	    }
+	    else {
+	        state = Start;
+	    }
+	    break;
+	case RELEASE:	
+	    if(PINA == 0x02) {
+	        state = PRESS2;
+	    }
+	    else {
+		state = Start;
+	    }
+	    break;
+	case PRESS2:
+	    if(PINA == 0x80) {
+	        state = Start;
+	    }
+	    else {
+		state = PRESS2;
+	    }
+	    break;        
         default:
 	    break;
     } // Transitions
 
     switch(state) {
+	case Start:
+	    PORTC = 0;
+	    break;
+	case PRESS:
+	    PORTC = 0;
+	    break;
+	case RELEASE:
+	    PORTC = 0;
+	    break;
+	case PRESS2:
+	    PORTC = 1;
+	    break;
 	default:
 	    break;
     } // State actions
