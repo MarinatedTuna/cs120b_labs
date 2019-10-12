@@ -12,7 +12,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States {} state;
+enum States {Start, PRESS, RELEASE, PRESS2} state;
 
 void Tick();
 
@@ -23,13 +23,21 @@ int main(void) {
 
     /* Insert your solution below */
     while (1) {
+	PORTC = 0;
         Tick();
     }
     return 1;
 }
 
 void Tick() {
-    switch(state) {        
+    switch(state) {
+	case Start:
+	    if(PA2) {
+	        state = PRESS;
+	    }
+	    else {
+	        state = Start;
+	    }	        
         default:
 	    break;
     } // Transitions
