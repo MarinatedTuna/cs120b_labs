@@ -1,10 +1,14 @@
-Breakpoint 1 at 0x114: file source/main.c, line 25.
+Breakpoint 1 at 0x1ba: file source/main.c, line 25.
 Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
 
 "Current state: Start
-State to transition to: PRESSPA0
-PORTC => 0x08"...test/tests.gdb:35: Error in sourced command file:
-No symbol "PRESSPA0" in current context.
+State to transition to: PRESS
+Expected PORTC => 0"..."Current state: PRESS
+State to transition to: RELEASE
+Expected PORTC => 0"...
+	Expected RELEASE but got state:0"Current state: RELEASE
+State to transition to: PRESS2
+Expected PORTC => 1"...======================================================
 Quitting: Remote doesn't know how to detach
