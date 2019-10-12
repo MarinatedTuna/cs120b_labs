@@ -10,5 +10,13 @@ State to transition to: RELEASE
 Expected PORTC => 0"...
 	Expected RELEASE but got state:0"Current state: RELEASE
 State to transition to: PRESS2
-Expected PORTC => 1"...======================================================
+Expected PORTC => 1"..."Current state: PRESS2
+State to transition to: Start
+Expected PORTC => 0"setPINA...
+	Expected Start but got state:3
+	Expected 0 
+	PORTC '0x800028:	0x01
+"Testing broken sequence from PRESS
+State to transition to: Start
+Expected PORTC => 0"...======================================================
 Quitting: Remote doesn't know how to detach

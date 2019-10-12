@@ -52,7 +52,20 @@ expect state PRESS2
 expectPORTC 1
 checkResult 
 
+test "Current state: PRESS2\nState to transition to: Start\nExpected PORTC => 0"setPINA 0x80
+set state = PRESS2
+continue 5
+expect state Start
+expectPORTC 0
+checkResult
 
+test "Testing broken sequence from PRESS\nState to transition to: Start\nExpected PORTC => 0"
+setPINA 0x01
+set state = PRESS
+continue 5
+expect state Start
+expectPORTC 0
+checkResult
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
