@@ -21,10 +21,9 @@ int main(void) {
     DDRA = 0x00; PORTA = 0xFF; //input    
     DDRC = 0xFF; PORTC = 0x00; //output
 
-    state = Start;
-
     /* Insert your solution below */
     while (1) {
+	state = Start;
         PORTC = 7;
         Tick();
     }
@@ -35,22 +34,26 @@ void Tick() {
     switch(state) {
         case Start:
             //state = OFF;
-            if(PA0 && PORTC <= 9) {
+            if(PINA == 0x01 && PORTC < 9) {
+		//PINA = PA0
 	        state = PRESSPA0;
 	    }
-	    else if(PA1 && PORTC >= 0) {
+	    else if(PINA == 0x02 && PORTC >= 0) {
+	        //PINA = PA1
 	        state = PRESSPA1;
 	    }
-	    else {
-		state = Start;
+	    else if(PINA == 0x03 && PORTC == 9) {
+	        //Cannot exceed 9
+		state = RELEASEBOTH;
 	    }
             break;
         case PRESSPA0:
-            //state = PB0 ? ON : OFF;
-	    if(PA1 && PORTC >= 0) {
+	    if(PINA == 0x02 && PORTC >= 0) {
+	        //PINA = PA1
 	        state = PRESSPA1;
 	    }
-	    else if(PA0 && PA1){
+	    else if(PINA == 0x03 && PORTC >= 0){
+	        //PINA = PA0 && PA1
 	        state = RELEASEBOTH;
 	    }
 	    else {
@@ -58,10 +61,12 @@ void Tick() {
 	    }
 	    break;
 	case PRESSPA1:
-	    if(PA0 && PORTC <= 9) {
+	    if(PINA == 0x01 && PORTC < 9) {
+	        //PINA = PA0
 	        state = PRESSPA0;
 	    }
-	    else if(PA0 && PA1) {
+	    else if(PINA == 0x03) {
+		//PINA = PA0 && PA1
 	        state = RELEASEBOTH;
 	    }
 	    else {
@@ -69,7 +74,8 @@ void Tick() {
 	    }
 	    break;
 	case RELEASEBOTH:
-	    if (PA0) {
+	    if(PINA == 0x01) {
+		//PINA = PA0
 	        state = PRESSPA0;
 	    }
 	    else {
@@ -82,9 +88,10 @@ void Tick() {
 
     switch(state) {
 	case Start:
+	    PORTC = 7;
 	    break;
 	case PRESSPA0:
-	    PORTC = PORTC + 1; //check again later
+	    PORTC = PORTC + 1; 
 	    break;
 	case PRESSPA1:
 	    PORTC = PORTC - 1; 

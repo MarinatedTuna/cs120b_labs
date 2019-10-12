@@ -26,33 +26,56 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 
-# Example test:
-test "Example test case we can honestly just ignore"
-# Set inputs
-setPINA 0x00
-setPINB 0x00
-# Continue for several ticks
-continue 2
-# Set expect values
-expectPORTC 0
-# Check pass/fail
-checkResult
-
 # Add tests below
 
 test "Current state: Start\nState to transition to: PRESSPA0\nPORTC => 0x08"
-setPINA 0x00
-setPINC 0x07
-set state = PRESSPA0
+setPINA 0x01 #PA0
+set state = Start
 continue 5
+expect state PRESSPA0
 expectPORTC 0x08
 checkResult
 
-test "State is ON so PB1's LED should be on"
-set state = ON
+test "Curent state: Start\n State to transition to: PRESSPA1\nExpected PORTC => 0x06"
+setPINA 0x02 #PA1
+set state = Start
 continue 5
-expectPORTB 0x01
+expect state PRESSPA1
+expectPORTC 0x06
 checkResult 
+
+test "Current state: PRESSPA0\n State to transition to: PRESSPA1\nExpected PORTC => 0x06"
+setPINA 0x02 #PA1
+set state = PRESSPA0
+continue 5
+expect state PRESSPA1
+expectPORTC 0x06
+checkResult
+
+test "Current state: Start\n State to transition to: RELEASEBOTH\nExpected PORTC => 0x00"
+setPINA 0x03 #PA1 && PA0
+set state = Start
+#setPINA 0x03 #PA1 && PA0
+continue 5
+expect state RELEASEBOTH
+expectPORTC 0x00
+checkResult
+
+test "Current state: PRESSPA1\n State to transition to: PRESSPA0\n Expected PORTC: 0x08"
+setPINA 0x01
+set state = PRESSPA1
+continue 5
+expect state PRESSPA0
+expectPORTC 0x08
+checkResult
+
+test "Current state: RELEASEBOTH\n State to transition to: PRESSPA0\n Expected PORTC: 0x08"
+setPINA 0x01
+set state = RELEASEBOTH
+continue 5
+expect state PRESSPA0
+expectPORTC 0x08
+checkResult
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
