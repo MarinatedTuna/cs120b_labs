@@ -69,6 +69,14 @@ expect state PRESSPA0
 expectPORTC 0x08
 checkResult
 
+test "Current state: RELEASEBOTH\n State to transition to: PRESSPA0\n Expected PORTC: 0x08"
+setPINA 0x01
+set state = RELEASEBOTH
+continue 5
+expect state PRESSPA0
+expectPORTC 0x08
+checkResult
+
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
 eval "shell echo Passed %d/%d tests.\n",$passed,$tests

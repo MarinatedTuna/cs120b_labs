@@ -17,5 +17,7 @@ Expected PORTC => 0x00"...
 	PORTC '0x800028:	0x07
 "Current state: PRESSPA1
  State to transition to: PRESSPA0
+ Expected PORTC: 0x08"..."Current state: RELEASEBOTH
+ State to transition to: PRESSPA0
  Expected PORTC: 0x08"...======================================================
 Quitting: Remote doesn't know how to detach
