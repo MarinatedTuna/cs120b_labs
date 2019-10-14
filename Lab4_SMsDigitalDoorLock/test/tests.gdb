@@ -37,8 +37,8 @@ expectPORTC 0
 checkResult
 
 test "Current state: PRESS\nState to transition to: RELEASE\nExpected PORTC => 0"
-setPINA 0xFB #~PA2
 set state = PRESS
+setPINA 0x00 #~PA2
 continue 5
 expect state RELEASE
 expectPORTC 0

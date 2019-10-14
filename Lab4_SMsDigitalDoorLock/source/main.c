@@ -40,7 +40,10 @@ void Tick() {
 	    }
 	    break;	
 	case PRESS:
-	    if(PINA == 0xFB) {
+	    if(PINA == 0x04) {
+	        state = PRESS;
+	    }
+	    else if(PINA == 0x00) {
 	        state = RELEASE;
 	    }
 	    else {
