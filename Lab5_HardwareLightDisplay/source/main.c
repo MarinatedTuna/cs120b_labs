@@ -13,11 +13,29 @@
 #endif
 
 int main(void) {
-    /* Insert DDR and PORT initializations */
+
+    DDRA = 0x00; PORTA = 0xFF; //inputs 
     DDRB = 0xFF; PORTB = 0x00; //outputs
-    /* Insert your solution below */
+
+    unsigned char led = 0x00;
+    unsigned char button = 0x00;
+    
     while (1) {
-	PORTB = 0x0F;
+	// if PA0 is 1
+	// PB1PB0 = 01
+	// else
+	// PB1PB0 = 10
+        // 1.) Read inputs
+        button = ~PINA & 0x01; // button is connected to A0
+        // 2.) Perform computation
+        if (button) { // True if button is pressed
+		led = (led & 0xFC) | 0x01;
+	}
+	else {
+		led = (led & 0xFC) | 0x02;
+	}
+	// 3.) Write output
+	PORTB = led;
     }
     return 1;
 }

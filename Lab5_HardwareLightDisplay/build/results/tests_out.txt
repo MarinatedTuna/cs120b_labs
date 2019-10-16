@@ -1,7 +1,16 @@
 Breakpoint 1 at 0xe6: file source/main.c, line 19.
 Note: automatically using hardware breakpoints for read-only addresses.
-======================================================
-Running all tests..."
+Type commands for breakpoint(s) 1, one per line.
+End with a line saying just "end".
+Continuing.
 
-"PINA: 0x00, PINB: 0x00 => PORTC: 0"...======================================================
+Breakpoint 1, main () at source/main.c:20
+20		PORTB = 0x0F;
+PINA addr0x800020:	0x00
+PORTB addr0x800025:	0x0f
+A debugging session is active.
+
+	Inferior 1 [Remote target] will be detached.
+
+Quit anyway? (y or n) Detaching from program: /home/csmajs/jtibo002/cs120b_labs/Lab5_HardwareLightDisplay/build/objects/main.elf, Remote target
 Quitting: Remote doesn't know how to detach
