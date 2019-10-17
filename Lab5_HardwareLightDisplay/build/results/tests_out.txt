@@ -3,5 +3,5 @@ Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
 
-"PINA: 0x00, PINB: 0x00 => PORTC: 0"..."Fuel level is 2, so PC5 lights up => PORTC: 0x10"..."Fuel level is 4, so PC5 and PC4 lights up => PORTC: 0x18"...======================================================
+"PINA: 0x00, PINB: 0x00 => PORTC: 0"..."Fuel level is 2, so PC5 lights up => PORTC: 0x20"..."Fuel level is 4, so PC5 and PC4 lights up => PORTC: 0x30"...======================================================
 Quitting: Remote doesn't know how to detach
