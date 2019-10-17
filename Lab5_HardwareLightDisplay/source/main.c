@@ -15,27 +15,18 @@
 int main(void) {
 
     DDRA = 0x00; PORTA = 0xFF; //inputs 
-    DDRB = 0xFF; PORTB = 0x00; //outputs
-
-    unsigned char led = 0x00;
-    unsigned char button = 0x00;
+    DDRC = 0xFF; PORTC = 0x00; //outputs
     
     while (1) {
-	// if PA0 is 1
-	// PB1PB0 = 01
-	// else
-	// PB1PB0 = 10
-        // 1.) Read inputs
-        button = ~PINA & 0x01; // button is connected to A0
-        // 2.) Perform computation
-        if (button) { // True if button is pressed
-		led = (led & 0xFC) | 0x01;
+        if(PINA == (!PA3 && !PA2 && !PA1 && !PA0)) {
+            PORTC = 0x00; // Level 0
 	}
-	else {
-		led = (led & 0xFC) | 0x02;
+	else if(PINA == 0x01 || PINA == 0x02) {
+	    PORTC = 0x10; // Level 1 or 2
 	}
-	// 3.) Write output
-	PORTB = led;
+	else if(PINA == 0x03 || PINA == 0x04) {
+	    PORTC = 0x18; // Level 3 or 4
+	}	
     }
     return 1;
 }

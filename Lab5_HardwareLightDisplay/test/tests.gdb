@@ -40,6 +40,18 @@ checkResult
 
 # Add tests below
 
+test "Fuel level is 2, so PC5 lights up => PORTC: 0x10"
+setPINA 0x02
+continue 5
+expectPORTC 0x10
+checkResult
+
+test "Fuel level is 4, so PC5 and PC4 lights up => PORTC: 0x18"
+setPINA 0x04
+continue 5
+expectPORTC 0x18
+checkResult
+
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
 eval "shell echo Passed %d/%d tests.\n",$passed,$tests
