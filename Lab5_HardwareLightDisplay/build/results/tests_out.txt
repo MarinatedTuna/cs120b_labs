@@ -1,7 +1,7 @@
-Breakpoint 1 at 0xea: file source/main.c, line 20.
+Breakpoint 1 at 0x250: file source/main.c, line 157.
 Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
 
-"PINA: 0x00, PINB: 0x00 => PORTC: 0"..."Fuel level is 2, so PC5 lights up => PORTC: 0x20"..."Fuel level is 4, so PC5 and PC4 lights up => PORTC: 0x30"...======================================================
+"PINA: 0x02, 0x00, 0x00 => PORTC: 6, state: wait"..."PINA: 0x02, 0x00, 0x03, 0x00 => PORTC: 0, state: reset_r "..."PINA: 0x01, 0x00, 0x01, 0x00, 0x01, 0x00 => PORTC: 9, state:wait "..."PINA: 0x02, 0x00, 0x00 => PORTC: 6, state: wait"..."PINA: 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00 => PORTC:0 , state:wait "..."PINA: 0x02, 0x00, 0x02, 0x00, 0x01, 0x00 => PORTC: 6, state: wait"...======================================================
 Quitting: Remote doesn't know how to detach
