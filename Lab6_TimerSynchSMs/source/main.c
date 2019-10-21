@@ -37,13 +37,42 @@ void TimerOn() {
     SREG |= 0x80;
 }
 
+void TimerOff() {
+    TCCR1B = 0x00;
+}
 
-int main(void) {
+void TimerISR() {
+    TimerFlag = 1;
+}
+
+// We dont touch this man
+ISR(TIMER_1_COMPA_vect) {
+    _avr_timer_cntcurr--;
+    if(_avr_timer_cntcurr == 0) {
+        TimerISR();
+        _avr_timer_cntcurr = _avr_timer_M;
+    }
+}
+
+// Set TimerISR() to tick every M ms
+void TimerSet(unsigned long M) {
+    _avr_timer_M = M;
+    _avr_timer_cntcurr = _avr_timer_M;
+} 
+
+void main() {
     /* Insert DDR and PORT initializations */
+    DDRB = 0xFF; PORTB = 0x00; //outputs
 
-    /* Insert your solution below */
-    while (1) {
-
+    TimerSet(1000);
+    TimerOn();
+    unsigned char tmpB = 0x00;
+    while(1) {
+        // synchSM calls
+        tmpB = ~tmpB;
+        PORTB = tmpB;
+        while (!TimerFlag); // Wait 1 sec
+        TimerFlag = 0;
     }
     return 1;
 }
