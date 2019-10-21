@@ -52,13 +52,18 @@ void TimerSet(unsigned long M){
     _avr_timer_cntcurr = _avr_timer_M;
 }
 
+enum States {led1, led2, led3, stop} state;
+
+void Tick();
 
 int main(void) {
-    DDRC = 0xFF;
-    PORTC = 0x00;
+    DDRC = 0xFF; PORTC = 0x00; //output
+
     TimerSet(100);
     TimerOn();
-	
+
+    //make state machine function call	
+    Tick();
 
     while (1) {
 	PORTC = 0x01;
@@ -72,4 +77,8 @@ int main(void) {
 	    TimerFlag = 0;
     }
     return 1;
+}
+
+void Tick() {
+    PORTC = 0x01;
 }
