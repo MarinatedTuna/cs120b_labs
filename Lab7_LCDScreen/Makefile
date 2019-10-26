@@ -95,7 +95,7 @@ $(PATHO)main.elf: $(OBJS)
 	@$(AVR) $(DEBUGFLAGS) $(SIMFLAGS) $(FLAGS) $(INCLUDES) -o $@ $^
 
 $(PATHO)%.o: $(PATHS)%.c
-	@$(AVR) $(DEBUGFLAGS) $(SIMFLAGS) $(FLAGS) $(INCLUDES) -c -o $@ $<
+	@$(AVR) $(DEBUGFLAGS) $(SIMFLAGS) $(FLAGS) $(INCLUDES) -c -o $@ $^
 
 clean:
 	$(CLEAN) $(PATHO)*.o $(PATHO)*.elf $(PATHB)*.hex
