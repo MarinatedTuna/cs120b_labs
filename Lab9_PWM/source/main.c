@@ -15,13 +15,28 @@
 void set_PWM(double frequency) {
     static double current_frequency;
     
-    if(frequency != current_frequency) {
-   //     TCRR3B &= 0x08;
-    }
-    else {
-   //     TCRR3B |= 0x03;
-    }
+    if (frequency != current_frequency) {
+        
+        if (!frequency) {
+            TCRR3B &= 0x08;
+        }
+        else {
+            TCRR3B |= 0x03;
+        }
 
+        if (freqency < 0.954) {
+            OCR3A = 0xFFFF;
+        }
+        else if (frequency > 31250) {
+            OCR3A = 0x0000;
+        }
+        else {
+            OCR3A = (short) (8000000 / (128 * frequency)) - 1;
+        }
+
+        TCNT3 = 0;
+        current_frequency = frequency;
+    }
 } 
 
 int main(void) {
