@@ -113,8 +113,10 @@ int main(void) {
     DDRA = 0x00; PORTA = 0xFF;
     DDRC = 0xFF; PORTC = 0x00;
     DDRD = 0xFF; PORTD = 0x00;
-    TimerSet(50);
+    TimerSet(25);
     TimerOn();
+
+
 
     state = init;
     tmp = 0x00;
@@ -124,8 +126,7 @@ int main(void) {
 		sm_tick();
 		LCD_Cursor(1);
 		LCD_WriteData(tmp + '0');	
-		while(!TimerFlag){
-		}
+		while(!TimerFlag);
 		TimerFlag = 0;
     }
     return 1;
