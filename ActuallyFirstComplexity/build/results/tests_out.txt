@@ -1,0 +1,5 @@
+Breakpoint 1 at 0x22e: file source/main.c, line 78.
+Note: automatically using hardware breakpoints for read-only addresses.
+test/initDebugger.gdb:19: Error in sourced command file:
+Remote connection closed
+Undefined command: "ls".  Try "help".
