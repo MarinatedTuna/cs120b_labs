@@ -1,0 +1,211 @@
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <string.h>
+#include <util/delay.h>
+#ifdef _SIMULATE_
+#include "simAVRHeader.h"
+#endif
+
+
+volatile unsigned char TimerFlag = 0;
+
+unsigned long _avr_timer_M = 1;
+unsigned long _avr_timer_cntcurr = 0;
+
+
+void TimerOn(){
+	TCCR1B = 0x0B;
+	
+	
+	OCR1A = 125;
+	TIMSK1 = 0x02;
+	TCNT1 = 0;
+	_avr_timer_cntcurr = _avr_timer_M;
+	
+	SREG = 0x80;
+}
+
+void TimerOff(){
+	TCCR1B = 0x00;
+}
+
+void TimerISR(){
+	TimerFlag = 1;
+}
+
+ISR(TIMER1_COMPA_vect){
+	_avr_timer_cntcurr--;
+	if(_avr_timer_cntcurr == 0){
+		TimerISR();
+		_avr_timer_cntcurr = _avr_timer_M;
+	}
+}
+
+void TimerSet(unsigned long M){
+	_avr_timer_M = M;
+	_avr_timer_cntcurr = _avr_timer_M;
+}
+
+//FOR LCD
+
+void LCD_init();
+void LCD_ClearScreen(void);
+void LCD_WriteCommand (unsigned char Command);
+void LCD_Cursor (unsigned char column);
+void LCD_DisplayString(unsigned char column , unsigned char *string);
+void delay_ms(int miliSec);
+
+#define SET_BIT(p,i) ((p) |= (1 << (i)))
+#define CLR_BIT(p,i) ((p) &= ~(1 << (i)))
+#define GET_BIT(p,i) ((p) & (1 << (i)))
+
+/*-------------------------------------------------------------------------*/
+#define DATA_BUS PORTC		// port connected to pins 7-14 of LCD display
+#define CONTROL_BUS PORTD	// port connected to pins 4 and 6 of LCD disp.
+#define RS 6			// pin number of uC connected to pin 4 of LCD disp.
+#define E 7			// pin number of uC connected to pin 6 of LCD disp.
+/*-------------------------------------------------------------------------*/
+
+void LCD_ClearScreen(void) {
+	LCD_WriteCommand(0x01);
+}
+
+void LCD_init(void) {
+
+	//wait for 100 ms.
+	LCD_WriteCommand(0x38);
+	LCD_WriteCommand(0x06);
+	LCD_WriteCommand(0x0f);
+	LCD_WriteCommand(0x01);
+	delay_ms(10);
+}
+
+void LCD_WriteCommand (unsigned char Command) {
+	CLR_BIT(CONTROL_BUS,RS);
+	DATA_BUS = Command;
+	SET_BIT(CONTROL_BUS,E);
+	asm("nop");
+	CLR_BIT(CONTROL_BUS,E);
+	delay_ms(2); // ClearScreen requires 1.52ms to execute
+}
+
+void LCD_WriteData(unsigned char Data) {
+	SET_BIT(CONTROL_BUS,RS);
+	DATA_BUS = Data;
+	SET_BIT(CONTROL_BUS,E);
+	asm("nop");
+	CLR_BIT(CONTROL_BUS,E);
+	delay_ms(1);
+}
+
+void LCD_DisplayString( unsigned char column, unsigned char* string) {
+	LCD_ClearScreen();
+	unsigned char c = column;
+	while(*string) {
+		LCD_Cursor(c++);
+		LCD_WriteData(*string++);
+	}
+}
+
+void LCD_Cursor(unsigned char column) {
+	if(column < 17) { //16x1 LCD: column < 9
+		LCD_WriteCommand(0x80 + column - 1); //16x2 LCD: column < 17
+	}
+	else {
+		LCD_WriteCommand(0xB8 + column - 9); // 16x1 LCD: column - 1
+	}
+}
+
+void delay_ms(int miliSec) { //for 8 Mhz crystal
+	int i,j;
+	for(i=0;i<miliSec;i++)
+	for(j=0;j<775;j++)
+	{
+		asm("nop");
+	}
+}
+
+//FOR JOYSTICK
+
+void ADC_init(){
+	ADCSRA |= (1 << ADEN) | (1 << ADSC) | (1 << ADATE);
+}
+
+unsigned short ReadADC(unsigned char ch){
+	ch = ch & 0x07;
+	ADMUX |= ch;
+	
+	ADCSRA |= (1<<ADSC);
+	
+	while(!(ADCSRA & (1<<ADIF)));
+	
+	ADCSRA |= (1<<ADIF);
+	
+	return(ADC);
+}
+
+int main(void) {
+	DDRA = 0x00; PORTA = 0xFF; //joystick inputs
+	DDRC = 0xFF; PORTC = 0x00; //lcd main outputs
+	DDRB = 0xFF; PORTB = 0x00; //joystick outputs
+	DDRD = 0xFF; PORTD = 0x00; //lcd other outputs
+	
+	unsigned short x;
+	unsigned short y;
+	unsigned char led = 0x00; //for joystick
+	unsigned char lcd = 0x00; //for lcd
+	
+	TimerSet(1000);
+	TimerOn();
+	
+	ADC_init();
+	LCD_init();
+	
+	lcd = 0x02; //initial score
+	
+	LCD_Cursor(1);
+	LCD_DisplayString(1, "Love Meter: "); //MAX AT 5
+	LCD_WriteData(lcd + '0');
+	
+	while (1) { //state machine and timer needed later
+		x = ReadADC(0); //not needed
+		y = ReadADC(1);
+		
+		led = 0x00;
+		
+		if(y > 900){
+			led = 0x02; //down
+			lcd = lcd - 1;
+			if(lcd > 0) {
+				LCD_Cursor(13);
+				LCD_WriteData(lcd + '0');				
+			}
+			else {
+				LCD_DisplayString(1, "You failed to get Jeff'd...");	
+			}
+		}
+		else if(y < 100){
+			led = 0x01; //up
+			lcd = lcd + 1;
+			
+			if(lcd < 5) {
+				LCD_Cursor(13);
+				LCD_WriteData(lcd + '0');				
+			}
+			else {
+				LCD_DisplayString(1, "You won his heart and got Jeff'd!");				
+			}
+		}
+
+		PORTB = led;
+		while(!TimerFlag);
+		TimerFlag = 0;
+	}
+	return 1;
+}
+
+
+
+
+
+
