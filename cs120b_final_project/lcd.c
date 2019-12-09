@@ -61,7 +61,13 @@ void LCD_Cursor(unsigned char column) {
 	}
 }
 
-//LINK WEBSITE
+//WEBSITE LINKS
+
+//This is the website I used to help me generate custom characters
+https://www.circuitvalley.com/2012/02/lcd-custom-character-hd44780-16x2.html
+
+//This is the website I used to help me program the functions for custom character creation
+https://www.electronicwings.com/avr-atmega/lcd-custom-character-display-using-atmega-16-32-
 
 //writes custom characters into memory
 void LCD_Custom_Char1 (unsigned char loc, unsigned char *msg)
