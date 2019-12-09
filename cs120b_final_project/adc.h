@@ -14,7 +14,7 @@ void ADC_init(){
 }
 
 //This is the website I used to help me modify the ReadADC function
-https://www.electronicwings.com/avr-atmega/nokia5110-graphical-display-interfacing-with-atmega16-32
+//https://www.electronicwings.com/avr-atmega/nokia5110-graphical-display-interfacing-with-atmega16-32
 
 unsigned short ReadADC(unsigned char ch){
 	ch = ch & 0x07;
