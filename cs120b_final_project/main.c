@@ -921,6 +921,8 @@ int sm_tick(int state){
 }
 
 //---------------------LED MATRIX----------------------
+//Website used to help me program the LED Matrix
+//https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf
 
 struct number{
 	unsigned char name;
